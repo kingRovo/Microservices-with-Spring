@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class OrderService {
 
-    private OrderRepo orderRepo;
+    private final OrderRepo orderRepo;
 
     public void addOrder(Order order){
         orderRepo.save(order);

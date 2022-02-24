@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("api/v1/orders")
 public class OrderController {
 
-    OrderService orderService;
+    private final OrderService orderService;
 
     @PostMapping("/")
     public ResponseEntity<?> addNewOrder(@RequestBody Order order){
