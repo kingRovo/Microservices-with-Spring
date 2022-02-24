@@ -21,7 +21,7 @@ public class OrderService {
         return orderRepo.findAll();
     }
 
-    public Order GetOrder(long id) {
+    public Order GetOrder(Long id) {
         return orderRepo.findById(id).orElseThrow();
     }
 }

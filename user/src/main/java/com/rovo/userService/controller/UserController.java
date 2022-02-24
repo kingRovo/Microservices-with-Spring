@@ -2,29 +2,29 @@ package com.rovo.userService.controller;
 
 import com.rovo.userService.model.Order;
 import com.rovo.userService.model.User;
+import com.rovo.userService.services.OrderService;
 import com.rovo.userService.services.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Arrays;
 import java.util.List;
-
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/v1/users")
 @Slf4j
 public class UserController {
 
-    private UserService userService;
-    private RestTemplate restTemplate;
+    private final UserService userService;
+
+    private final OrderService orderService;
+
+
 
     @PostMapping("/")
-    public ResponseEntity<?> dUser(@RequestBody User user){
+    public ResponseEntity<?> addUser(@RequestBody User user){
 
         if (user == null) {
             log.error("Invalid user");
@@ -55,7 +55,7 @@ public class UserController {
 
     }
     @GetMapping("/{id}")
-    public ResponseEntity<?> findUserByID(@PathVariable("id") long id){
+    public ResponseEntity<?> findUserByID(@PathVariable("id") Long id){
 
             try{
 
@@ -71,7 +71,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable("id") long id,@RequestBody User user){
+    public ResponseEntity<?> updateUser(@PathVariable("id") Long id,@RequestBody User user){
 
 
         try{
@@ -93,7 +93,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable("id")long id){
+    public ResponseEntity<?> deleteUser(@PathVariable("id")Long id){
 
 
         try{
@@ -113,8 +113,31 @@ public class UserController {
     }
 
     @GetMapping("/orders/{id}")
-    public Order getOrders(@PathVariable("id") long id) {
-        Order orders = restTemplate.getForObject("http://localhost:8081/"+"api/v1/orders/"+id, Order.class);
-        return orders;
+    public ResponseEntity<Order> getOrders(@PathVariable("id") Long id) {
+
+        try{
+            Order order = orderService.getOrder(id);
+            return new ResponseEntity<>(order,HttpStatus.OK);
+        }
+        catch (Exception exception){
+            return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+    }
+    @GetMapping("/orders")
+    public ResponseEntity<List<Order>> getAllOrder() throws Exception{
+
+
+        try{
+
+            return new ResponseEntity(orderService.getAllOrders(), HttpStatus.OK);
+        }
+
+        catch(Exception exception){
+
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+
     }
 }

@@ -34,24 +34,28 @@ public class OrderController {
     @GetMapping("/")
     public ResponseEntity<List<Order>> displayAllOrder(){
         try {
+
              return new ResponseEntity<>(orderService.DisplayOrders(),HttpStatus.OK);
 
         }
         catch (Exception exception){
+            log.error("invalid Request..");
             return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> displayOrder(@PathVariable("id") long id){
+    public ResponseEntity<Order> displayOrder(@PathVariable("id") Long id){
 
         try{
         Order order  = orderService.GetOrder(id);
+        log.info("Order Display..");
 
         return new ResponseEntity<>(order,HttpStatus.OK);
 
         }
         catch (Exception exception){
+            log.error("Invalid Request");
             return new ResponseEntity(exception.getMessage(),HttpStatus.BAD_REQUEST);
         }
 

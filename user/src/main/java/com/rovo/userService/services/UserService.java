@@ -21,13 +21,13 @@ public class UserService {
         userRepo.save(user);
     }
 
-    public User findUser(long id){
+    public User findUser(Long id){
 
         return userRepo.findById(id).orElseThrow();
 
     }
 
-    public void editUser(long id, User user){
+    public void editUser(Long id, User user){
 
         User usr = userRepo.findById(id).orElseThrow();
 
@@ -35,7 +35,7 @@ public class UserService {
         userRepo.save(usr);
     }
 
-    public void deleteUser(long id){
+    public void deleteUser(Long id){
 
         userRepo.deleteById(id);
     }
