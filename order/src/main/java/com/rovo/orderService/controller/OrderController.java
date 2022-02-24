@@ -35,7 +35,7 @@ public class OrderController {
     public ResponseEntity<List<Order>> displayAllOrder(){
         try {
 
-             return new ResponseEntity<>(orderService.DisplayOrders(),HttpStatus.OK);
+             return new ResponseEntity<>(orderService.displayOrders(),HttpStatus.OK);
 
         }
         catch (Exception exception){
@@ -59,5 +59,20 @@ public class OrderController {
             return new ResponseEntity(exception.getMessage(),HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> editUser(@PathVariable("id") Long id,@RequestBody Order order){
+
+        try {
+            orderService.editOrder(id,order);
+            log.info("Order Updated");
+            return  new ResponseEntity<>(HttpStatus.OK);
+
+        }
+        catch (Exception exception){
+            log.error("invalid Request..");
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 }

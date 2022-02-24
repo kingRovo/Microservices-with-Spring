@@ -140,4 +140,32 @@ public class UserController {
 
 
     }
+
+
+    @PostMapping("/{id}/order")
+    public ResponseEntity<?> AddUserOrder(@PathVariable("id") Long id, @RequestBody Order order){
+
+        try {
+            order.setUser_id(id);
+            orderService.AddOrderToUser(order);
+
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        catch (Exception exception){
+            return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @PutMapping("/orders/{id}")
+    public ResponseEntity<?> updateOrder(@PathVariable("id") Long id,@RequestBody Order order){
+
+        try{
+            orderService.updateOrder(id,order);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception exception){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

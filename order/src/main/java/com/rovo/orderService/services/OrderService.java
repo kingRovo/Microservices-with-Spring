@@ -17,11 +17,23 @@ public class OrderService {
         orderRepo.save(order);
     }
 
-    public List<Order> DisplayOrders(){
+    public List<Order> displayOrders(){
         return orderRepo.findAll();
     }
 
     public Order GetOrder(Long id) {
         return orderRepo.findById(id).orElseThrow();
     }
+
+    public void editOrder(Long id,Order order){
+
+        Order localorder = orderRepo.findById(id).orElseThrow();
+
+        localorder.setProductName(order.getProductName());
+        localorder.setUser_id(order.getUser_id());
+        localorder.setOrderdate(order.getOrderdate());
+
+        orderRepo.save(localorder);
+    }
+
 }

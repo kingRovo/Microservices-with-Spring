@@ -16,16 +16,18 @@ import java.util.Date;
 public class Order {
 
 
-    @NotNull
+
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private Long user_id;
     @NotNull
     @Size(min = 5,max = 30)
     private String productName;
 
     @NotNull
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date Orderdate;
+    private Date orderdate;
 
 
 }
