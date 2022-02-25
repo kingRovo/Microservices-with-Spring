@@ -11,10 +11,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.util.List;
 
 @Service
-
 public class OrderService {
 
-    private static final String URI_ORDER = "http://localhost:8081/";
+    private static final String URI_ORDER = "http://ORDER-SERVICE/";
 
     private final RestTemplate restTemplate;
 
@@ -58,4 +57,5 @@ public class OrderService {
         restTemplate.postForObject("http://ORDER-SERVICE/"+"api/v1/orders/",order, Order.class);
 
     }
+
 }

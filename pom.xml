@@ -12,6 +12,7 @@
         <module>user</module>
         <module>order</module>
         <module>Eureka_Server</module>
+        <module>API_Gateway</module>
     </modules>
 
     <properties>
